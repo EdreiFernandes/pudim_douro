@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:pudim_douro/screens/home.dart';
 
 const users = {
   'user@teste.com': '123',
@@ -49,7 +50,7 @@ class LoginScreen extends StatelessWidget {
       onSignup: _signupUser,
       onSubmitAnimationCompleted: () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const Placeholder(),
+          builder: (context) => const Home(),
         ));
       },
       onRecoverPassword: _recoverPassword,
