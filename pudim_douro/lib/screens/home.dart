@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/score_table.dart';
+import '../widgets/scoreboard.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
               ),
             ],
           ),
-          const ScoreTable(),
+          const Scoreboard(),
         ],
       ),
     );
