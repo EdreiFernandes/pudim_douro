@@ -64,8 +64,8 @@ class MenuItems extends StatelessWidget {
           ),
         ),
         ListTile(
-          leading: const Icon(Icons.create),
-          title: const Text('History'),
+          leading: const Icon(Icons.history), //Icons.create
+          title: const Text('Histórico'),
           onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const History(),
