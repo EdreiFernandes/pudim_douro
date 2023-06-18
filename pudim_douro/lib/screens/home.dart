@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pudim_douro/widgets/side_menu.dart';
 
 import '../widgets/scoreboard.dart';
 
@@ -8,9 +9,9 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const SideMenu(),
       appBar: AppBar(
         title: const Text('Pudim DOuro'),
-        actions: const <Widget>[],
       ),
       body: ListView(
         children: [
@@ -21,9 +22,7 @@ class Home extends StatelessWidget {
                   horizontal: 50,
                   vertical: 15,
                 ),
-                child: const Image(
-                  image: AssetImage('assets/images/logo_pudim.png'),
-                ),
+                child: Image.asset('assets/images/logo_pudim.png'),
               ),
             ],
           ),

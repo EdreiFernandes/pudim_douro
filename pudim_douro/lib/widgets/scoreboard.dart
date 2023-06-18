@@ -46,7 +46,6 @@ class Scoreboard extends StatelessWidget {
     return Center(
       child: DataTable(
         columnSpacing: MediaQuery.of(context).size.width / 8,
-        border: TableBorder.all(),
         columns: <DataColumn>[
           const DataColumn(
             label: Expanded(
