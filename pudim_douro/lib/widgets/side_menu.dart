@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pudim_douro/screens/home.dart';
 import 'package:pudim_douro/screens/login_screen.dart';
+import 'package:pudim_douro/widgets/history.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({super.key});
@@ -51,7 +52,7 @@ class MenuItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Wrap(
       children: [
         ListTile(
           leading: const Icon(Icons.home),
@@ -64,12 +65,12 @@ class MenuItems extends StatelessWidget {
         ),
         ListTile(
           leading: const Icon(Icons.create),
-          title: const Text('Placeholder'),
+          title: const Text('History'),
           onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const Placeholder(),
+              MaterialPageRoute(
+                builder: (context) => const History(),
+              ),
             ),
-          ),
         ),
         const Divider(),
         ListTile(
