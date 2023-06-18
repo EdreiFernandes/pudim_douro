@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pudim_douro/screens/home.dart';
 import 'package:pudim_douro/screens/login_screen.dart';
-import 'package:pudim_douro/widgets/history.dart';
+import 'package:pudim_douro/screens/history.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({super.key});
