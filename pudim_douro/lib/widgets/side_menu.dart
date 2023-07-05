@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pudim_douro/screens/home.dart';
 import 'package:pudim_douro/screens/login_screen.dart';
 import 'package:pudim_douro/screens/history.dart';
+import 'package:pudim_douro/screens/vote.dart';
+
 
 class SideMenu extends StatelessWidget {
   const SideMenu({super.key});
@@ -67,10 +69,19 @@ class MenuItems extends StatelessWidget {
           leading: const Icon(Icons.history), //Icons.create
           title: const Text('Histórico'),
           onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const History(),
-              ),
+            MaterialPageRoute(
+              builder: (context) => const History(),
             ),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.how_to_vote),
+          title: const Text('Votação'),
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const Vote(),
+            ),
+          ),
         ),
         const Divider(),
         ListTile(
