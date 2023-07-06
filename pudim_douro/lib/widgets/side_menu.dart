@@ -30,17 +30,18 @@ class MenuHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UserAccountsDrawerHeader(
-      accountName: const Text('User'),
+      accountName: const Text('User Default'),
       accountEmail: const Text('user@teste.com'),
       currentAccountPicture: CircleAvatar(
         child: ClipOval(
-          child: Image.asset('assets/images/logo_pudim.png'),
+          child: Image.asset('assets/images/user_default.png'),
         ),
       ),
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/logo_pudim.png'),
+          image: AssetImage('assets/images/background_default.jpg'),
           fit: BoxFit.cover,
+          opacity: 150,
         ),
       ),
     );
