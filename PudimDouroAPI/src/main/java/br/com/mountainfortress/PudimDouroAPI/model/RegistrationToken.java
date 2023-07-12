@@ -19,12 +19,15 @@ import java.sql.Timestamp;
 public class RegistrationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
 
     @NotNull
     @Size(max = 10)
-    private String Token;
+    private String token;
 
     @NotNull
     private Timestamp validate;
+
+    @NotNull
+    private boolean active;
 }
