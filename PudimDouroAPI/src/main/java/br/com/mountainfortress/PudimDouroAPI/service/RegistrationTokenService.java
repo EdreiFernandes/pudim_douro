@@ -20,8 +20,8 @@ public class RegistrationTokenService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public RegistrationTokenDto getValidToken() {
-        RegistrationToken token = getActiveToken();
+    public RegistrationTokenDto getCurrentActiveToken() {
+        RegistrationToken token = lookForActiveToken();
         if(token == null) return null;
 
         return modelMapper.map(token, RegistrationTokenDto.class);
@@ -43,7 +43,7 @@ public class RegistrationTokenService {
         return Timestamp.valueOf(validate.atTime(LocalTime.MIDNIGHT));
     }
 
-    private RegistrationToken getActiveToken(){
+    private RegistrationToken lookForActiveToken(){
         List<RegistrationToken> tokens = repository.findActiveToken();
         if(tokens.isEmpty()) return null;
 
@@ -51,7 +51,7 @@ public class RegistrationTokenService {
     }
 
     private void inactivateLastToken(){
-        RegistrationToken lastToken = getActiveToken();
+        RegistrationToken lastToken = lookForActiveToken();
         if(lastToken != null) {
             lastToken.setActive(false);
             repository.save(lastToken);

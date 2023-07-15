@@ -18,7 +18,7 @@ public class RegistrationTokenController {
 
     @GetMapping
     public ResponseEntity<RegistrationTokenDto>  getRegistrationToken(){
-        RegistrationTokenDto token = service.getValidToken();
+        RegistrationTokenDto token = service.getCurrentActiveToken();
         if (token == null) return ResponseEntity.noContent().build();
         return ResponseEntity.ok().body(token);
     }
