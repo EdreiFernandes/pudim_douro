@@ -11,4 +11,13 @@ public class UserDto {
     private String password;
     private boolean active;
 
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                '}';
+    }
 }

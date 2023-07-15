@@ -7,6 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -14,6 +16,13 @@ public class UserService {
     private UserRepository repository;
     @Autowired
     private ModelMapper modelMapper;
+
+    public  UserDto getUser(String email){
+        Optional result = repository.findById(email);
+        if(result.isEmpty()) return null;
+
+        return modelMapper.map(result, UserDto.class);
+    }
 
     public UserDto createUser(UserDto dto){
         User user = modelMapper.map(dto, User.class);
