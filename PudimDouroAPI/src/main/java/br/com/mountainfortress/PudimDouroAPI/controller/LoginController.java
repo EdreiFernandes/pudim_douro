@@ -33,4 +33,14 @@ public class LoginController {
         }
     }
 
+    @PostMapping
+    public ResponseEntity<String> login(@RequestBody LoginDto dto){
+        try {
+            UserDto user = service.tryToLogin(dto);
+
+            return ResponseEntity.accepted().body(user.toString());
+        } catch (LoginException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

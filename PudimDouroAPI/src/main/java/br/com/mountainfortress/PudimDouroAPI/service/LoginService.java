@@ -29,4 +29,12 @@ public class LoginService {
         user.setName(user.getEmail().split("@")[0]);
         return userService.createUser(user);
     }
+
+    public UserDto tryToLogin(LoginDto dto) throws LoginException {
+        UserDto user = userService.getUser(dto.getEmail());
+        if(user == null) throw new LoginException("Wrong email or password!");
+        if(!user.isActive() || !user.getPassword().equals(dto.getPassword())) throw new LoginException("Wrong email or password!");
+
+        return user;
+    }
 }
