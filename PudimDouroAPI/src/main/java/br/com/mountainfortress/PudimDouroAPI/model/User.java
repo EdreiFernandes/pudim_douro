@@ -27,7 +27,7 @@ public class User {
     private String name;
 
     @NotNull
-    @Size(max = 20)
+    @Size(max = 100)
     private String password;
 
     @NotNull

@@ -18,7 +18,7 @@ public class UserService {
     private ModelMapper modelMapper;
 
     public  UserDto getUser(String email){
-        Optional result = repository.findById(email);
+        Optional<User> result = repository.findById(email);
         if(result.isEmpty()) return null;
 
         return modelMapper.map(result, UserDto.class);
