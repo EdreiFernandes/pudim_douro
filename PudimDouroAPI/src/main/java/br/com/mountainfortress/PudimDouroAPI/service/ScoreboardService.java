@@ -18,9 +18,6 @@ public class ScoreboardService {
     private ModelMapper modelMapper;
 
     public List<ScoreboardDto> getScoreboard(){
-        var te = repository.findAll();
-
-
         return repository
                 .findAll()
                 .stream()
