@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface EditionRepository extends JpaRepository<Edition, Integer> {
     @Query(value = "FROM Edition ed WHERE ed.active = TRUE")
-    Edition findByActive();
+    Edition findActive();
 }

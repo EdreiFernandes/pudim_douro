@@ -27,9 +27,9 @@ public class Edition {
     @NotNull
     private boolean active;
 
-    private String first_place;
+    private Integer first_place;
 
-    private String second_place;
+    private Integer second_place;
 
-    private String third_place;
+    private Integer third_place;
 }

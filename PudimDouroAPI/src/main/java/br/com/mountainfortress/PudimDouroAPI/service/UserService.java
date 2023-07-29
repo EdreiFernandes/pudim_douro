@@ -12,8 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class UserService {
 
@@ -29,8 +27,8 @@ public class UserService {
     private ModelMapper modelMapper;
 
     public  UserDto getUser(String email){
-        Optional<User> result = userRepository.findById(email);
-        if(result.isEmpty()) return null;
+        User result = userRepository.findByEmail(email);
+        if(result == null) return null;
 
         return modelMapper.map(result, UserDto.class);
     }
@@ -44,17 +42,17 @@ public class UserService {
     }
 
     public String inscriptionUserInCurrentEdition(UserDto dto) throws InscriptionException {
-        UserDto user = getUser(dto.getEmail());
+        User user = userRepository.findByEmail(dto.getEmail());
         if(user == null) throw new InscriptionException("This user does not exist");
 
-        Edition edition = editionRepository.findByActive();
+        Edition edition = editionRepository.findActive();
         if(edition == null) throw new InscriptionException("There is no open edition");
 
-        Inscription inscription = inscriptionRepository.findActiveByUserAndEdition(dto.getEmail(), edition.getId());
+        Inscription inscription = inscriptionRepository.findByUserAndEdition(user.getId(), edition.getId());
         if(inscription != null) throw new InscriptionException("User is already registered");
 
         inscription = new Inscription();
-        inscription.setUser(dto.getEmail());
+        inscription.setUser(user.getId());
         inscription.setEdition(edition.getId());
         inscriptionRepository.save(inscription);
 
