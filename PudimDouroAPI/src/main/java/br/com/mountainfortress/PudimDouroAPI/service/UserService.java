@@ -1,5 +1,7 @@
 package br.com.mountainfortress.PudimDouroAPI.service;
 
+import br.com.mountainfortress.PudimDouroAPI.constant.ErrorMessage;
+import br.com.mountainfortress.PudimDouroAPI.constant.SuccessMessage;
 import br.com.mountainfortress.PudimDouroAPI.dto.UserDto;
 import br.com.mountainfortress.PudimDouroAPI.exception.InscriptionException;
 import br.com.mountainfortress.PudimDouroAPI.model.Edition;
@@ -43,19 +45,19 @@ public class UserService {
 
     public String inscriptionUserInCurrentEdition(UserDto dto) throws InscriptionException {
         User user = userRepository.findByEmail(dto.getEmail());
-        if(user == null) throw new InscriptionException("This user does not exist");
+        if(user == null) throw new InscriptionException(ErrorMessage.USER_NOT_EXIST);
 
         Edition edition = editionRepository.findActive();
-        if(edition == null) throw new InscriptionException("There is no open edition");
+        if(edition == null) throw new InscriptionException(ErrorMessage.EDITION_NOT_EXIST);
 
         Inscription inscription = inscriptionRepository.findByUserAndEdition(user.getId(), edition.getId());
-        if(inscription != null) throw new InscriptionException("User is already registered");
+        if(inscription != null) throw new InscriptionException(ErrorMessage.REGISTERED_USER);
 
         inscription = new Inscription();
         inscription.setUser(user.getId());
         inscription.setEdition(edition.getId());
         inscriptionRepository.save(inscription);
 
-        return "Successful registration";
+        return SuccessMessage.INSCRIPTION;
     }
 }
