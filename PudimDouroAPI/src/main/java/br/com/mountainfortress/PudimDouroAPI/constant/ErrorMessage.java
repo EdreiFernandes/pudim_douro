@@ -7,6 +7,9 @@ public final class ErrorMessage {
     public static final String INVALID_TOKEN = "Token is not valid!";
     public static final String REGISTERED_EMAIL = "E-mail already registered!";
     public static final String WRONG_LOGIN = "Wrong email or password!";
+    public static final String DUPLICATE_VOTE = "Your vote has already been registered";
+    public static final String NOT_SUBSCRIBED = "Selected user is not subscribed to this edition";
+    public static final String EQUAL_USERS = "Users are equal in more than one position";
 
     private ErrorMessage(){
         throw new AssertionError();
