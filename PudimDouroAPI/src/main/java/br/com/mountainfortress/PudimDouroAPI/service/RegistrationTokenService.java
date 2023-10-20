@@ -44,7 +44,7 @@ public class RegistrationTokenService {
     }
 
     private RegistrationToken lookForActiveToken(){
-        List<RegistrationToken> tokens = repository.findActiveToken();
+        List<RegistrationToken> tokens = repository.findActive();
         if(tokens.isEmpty()) return null;
 
         return tokens.get(0);

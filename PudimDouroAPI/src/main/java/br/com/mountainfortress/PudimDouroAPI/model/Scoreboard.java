@@ -19,7 +19,7 @@ public class Scoreboard {
     private Integer id;
 
     @NotNull
-    private String user;
+    private Integer user;
 
     @NotNull
     private Integer gold_medal;

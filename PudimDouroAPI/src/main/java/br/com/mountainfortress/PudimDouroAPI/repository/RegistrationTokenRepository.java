@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface RegistrationTokenRepository extends JpaRepository<RegistrationToken, Integer> {
     @Query(value = "FROM RegistrationToken rt WHERE rt.active = TRUE")
-    List<RegistrationToken> findActiveToken();
+    List<RegistrationToken> findActive();
 }
