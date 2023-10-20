@@ -1,5 +1,6 @@
 package br.com.mountainfortress.PudimDouroAPI.controller;
 
+import br.com.mountainfortress.PudimDouroAPI.constant.SuccessMessage;
 import br.com.mountainfortress.PudimDouroAPI.dto.UserDto;
 import br.com.mountainfortress.PudimDouroAPI.exception.InscriptionException;
 import br.com.mountainfortress.PudimDouroAPI.service.UserService;
@@ -19,7 +20,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<String> test(){
-        return ResponseEntity.ok("It Works");
+        return ResponseEntity.ok(SuccessMessage.TEST);
     }
 
     @PostMapping

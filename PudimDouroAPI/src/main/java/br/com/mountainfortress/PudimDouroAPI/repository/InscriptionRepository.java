@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface InscriptionRepository extends JpaRepository<Inscription, Integer> {
-    @Query(value = "FROM Inscription in WHERE in.user = :email and in.edition = :edition")
-    Inscription findActiveByUserAndEdition(@Param("email") String email, @Param("edition") Integer editionId);
+    @Query(value = "FROM Inscription in WHERE in.user = :user_id and in.edition = :edition_id")
+    Inscription findByUserAndEdition(@Param("user_id") Integer userId, @Param("edition_id") Integer editionId);
 }
