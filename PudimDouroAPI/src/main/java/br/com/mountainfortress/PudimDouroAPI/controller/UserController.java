@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -19,8 +21,14 @@ public class UserController {
     private UserService service;
 
     @GetMapping
-    public ResponseEntity<String> test(){
-        return ResponseEntity.ok(SuccessMessage.TEST);
+    public ResponseEntity<List<UserDto>> test(){
+        List<UserDto> list = new ArrayList<>();
+
+        UserDto dto = service.getUser("edrei@teste.com");
+
+        list.add(dto);
+
+        return ResponseEntity.ok().body(list);
     }
 
     @PostMapping
