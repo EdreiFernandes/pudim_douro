@@ -4,11 +4,6 @@ import 'package:pudim_douro/http/webclients/login_webclient.dart';
 import 'package:pudim_douro/models/login.dart';
 import 'package:pudim_douro/screens/home.dart';
 
-const users = {
-  'user@teste.com': '123',
-  'admin@teste.com': 'admin',
-};
-
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final LoginWebClient _webClient = LoginWebClient();
@@ -19,13 +14,7 @@ class LoginScreen extends StatelessWidget {
   Future<String?> _authUser(LoginData data) {
     debugPrint('Name: ${data.name}, Password: ${data.password}');
     return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'User not exists';
-      }
-      if (users[data.name] != data.password) {
-        return 'Password does not match';
-      }
-      return null;
+      return _webClient.login(Login.fromLoginData(data));
     });
   }
 
@@ -39,10 +28,7 @@ class LoginScreen extends StatelessWidget {
   Future<String?> _recoverPassword(String name) {
     debugPrint('Name: $name');
     return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(name)) {
-        return 'User not exists';
-      }
-      return null;
+      return "Not implemented yet";
     });
   }
 

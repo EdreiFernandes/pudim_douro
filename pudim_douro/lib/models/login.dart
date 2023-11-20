@@ -19,12 +19,17 @@ class Login {
   Login.fromJson(Map<String, dynamic> json)
       : email = json['email'],
         password = json['password'],
-        token = json['token']; 
+        token = json['token'];
 
   Login.fromSignupData(SignupData signupData)
       : email = signupData.name.toString(),
         password = signupData.password.toString(),
         token = (signupData.additionalSignupData?["Token"]).toString();
+
+  Login.fromLoginData(LoginData loginData)
+      : email = loginData.name.toString(),
+        password = loginData.password.toString(),
+        token = "";
 
   Map<String, dynamic> toJson() => {
         'email': email,

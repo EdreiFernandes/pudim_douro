@@ -9,4 +9,5 @@ final Client client = InterceptedClient.build(interceptors: [
 const String apiUrl = '192.168.15.150:8080';
 
 final Uri userUrl = Uri.http(apiUrl, '/api/user');
+final Uri loginUrl = Uri.http(apiUrl, '/api/login');
 final Uri signupUrl = Uri.http(apiUrl, '/api/login/new');

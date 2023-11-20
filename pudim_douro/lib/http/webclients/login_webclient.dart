@@ -17,7 +17,23 @@ class LoginWebClient {
       body: loginJson,
     );
 
-    if(response.statusCode == 201) return null;
+    if (response.statusCode == 201) return null;
+
+    return Future.value(response.body);
+  }
+
+  Future<String?> login(Login login) async {
+    final String loginJson = jsonEncode(login.toJson());
+
+    final Response response = await client.post(
+      loginUrl,
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: loginJson,
+    );
+
+    if (response.statusCode == 202) return null;
 
     return Future.value(response.body);
   }
