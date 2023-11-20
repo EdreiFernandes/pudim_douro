@@ -90,7 +90,7 @@ class MenuItems extends StatelessWidget {
           title: const Text('Sair'),
           onTap: () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => const LoginScreen(),
+              builder: (context) => LoginScreen(),
             ),
           ),
         ),
