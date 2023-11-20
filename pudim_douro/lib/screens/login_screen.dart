@@ -8,7 +8,6 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final LoginWebClient _webClient = LoginWebClient();
 
-
   Duration get loginTime => const Duration(milliseconds: 2250);
 
   Future<String?> _authUser(LoginData data) {
