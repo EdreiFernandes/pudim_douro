@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:http/http.dart';
 import 'package:pudim_douro/http/webclient.dart';
 import 'package:pudim_douro/models/login.dart';
@@ -33,7 +34,11 @@ class LoginWebClient {
       body: loginJson,
     );
 
-    if (response.statusCode == 202) return null;
+    if (response.statusCode == 202) {
+      User loggedUser = User.fromJson(jsonDecode(response.body));
+      await SessionManager().set("user", loggedUser);
+      return null;
+    }
 
     return Future.value(response.body);
   }

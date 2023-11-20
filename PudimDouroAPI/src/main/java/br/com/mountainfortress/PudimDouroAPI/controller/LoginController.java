@@ -3,6 +3,7 @@ package br.com.mountainfortress.PudimDouroAPI.controller;
 import br.com.mountainfortress.PudimDouroAPI.dto.LoginDto;
 import br.com.mountainfortress.PudimDouroAPI.dto.UserDto;
 import br.com.mountainfortress.PudimDouroAPI.service.LoginService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,9 +39,11 @@ public class LoginController {
         try {
             UserDto user = service.tryToLogin(dto);
 
-            return ResponseEntity.accepted().body(user.toString());
+            return ResponseEntity.accepted().body(user.toJson());
         } catch (LoginException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 }

@@ -1,7 +1,7 @@
 class User {
   final String email;
   final String name;
-  final String password;
+  final String? password;
   final bool active;
 
   User(

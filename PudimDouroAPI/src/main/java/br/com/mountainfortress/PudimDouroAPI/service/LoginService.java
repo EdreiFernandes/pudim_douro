@@ -44,6 +44,7 @@ public class LoginService {
                 !passwordEncoder.matches(dto.getPassword(), user.getPassword());
 
         if(wrongLogin) throw new LoginException(ErrorMessage.WRONG_LOGIN);
+        user.setPassword(null);
         return user;
     }
 }
