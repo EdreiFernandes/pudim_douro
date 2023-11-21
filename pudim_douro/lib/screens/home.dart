@@ -15,9 +15,9 @@ class Home extends StatelessWidget {
         title: const Text('Pudim DOuro'),
       ),
       body: ListView(
-        children: const [
-          SignedUpWarning(),
-          Logo(),
+        children: [
+          const SignedUpWarning(),
+          const Logo(),
           Scoreboard(),
         ],
       ),
