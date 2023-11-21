@@ -28,9 +28,11 @@ public class LoginController {
             UserDto user = service.createUserLogin(dto);
             URI address = uriBuilder.path("/api/user/{email}").buildAndExpand(user.getEmail()).toUri();
 
-            return ResponseEntity.created(address).body(user.toString());
+            return ResponseEntity.created(address).body(user.toJson());
         } catch (LoginException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 

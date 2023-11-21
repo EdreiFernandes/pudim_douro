@@ -18,7 +18,11 @@ class LoginWebClient {
       body: loginJson,
     );
 
-    if (response.statusCode == 201) return null;
+    if (response.statusCode == 201) {
+      User loggedUser = User.fromJson(jsonDecode(response.body));
+      await SessionManager().set("user", loggedUser);
+      return null;
+    }
 
     return Future.value(response.body);
   }
