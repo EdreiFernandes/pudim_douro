@@ -2,6 +2,7 @@ package br.com.mountainfortress.PudimDouroAPI.controller;
 
 import br.com.mountainfortress.PudimDouroAPI.dto.ScoreboardDto;
 import br.com.mountainfortress.PudimDouroAPI.service.ScoreboardService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,10 @@ public class ScoreboardController {
     @GetMapping
     public ResponseEntity<String> getScoreboard(){
         List<ScoreboardDto> scoreboard = service.getScoreboard();
-        return ResponseEntity.ok(scoreboard.toString());
+        try {
+            return ResponseEntity.ok().body(ScoreboardDto.toJson(scoreboard));
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 }

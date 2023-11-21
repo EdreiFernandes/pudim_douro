@@ -10,14 +10,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class UserDto {
+public class UserDto extends JsonableDto {
     private String email;
     private String name;
     private String password;
     private boolean active;
-
-    public String toJson() throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        return ow.writeValueAsString(this);
-    }
 }
