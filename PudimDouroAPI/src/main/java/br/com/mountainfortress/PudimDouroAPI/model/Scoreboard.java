@@ -28,5 +28,5 @@ public class Scoreboard {
     private Integer silver_medal;
 
     @NotNull
-    private Integer bronze_medal;
+    private Integer brass_medal;
 }
