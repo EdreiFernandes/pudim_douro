@@ -83,7 +83,7 @@ class MenuItems extends StatelessWidget {
         ),
         ListTile(
           leading: const Icon(Icons.history), //Icons.create
-          title: const Text('Histórico'),
+          title: const Text('History'),
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => const History(),
@@ -92,17 +92,23 @@ class MenuItems extends StatelessWidget {
         ),
         ListTile(
           leading: const Icon(Icons.how_to_vote),
-          title: const Text('Votação'),
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const Vote(),
-            ),
-          ),
+          title: const Text('Vote'),
+          //#region Disable vote
+          onTap: () => availabilitySoonNotice(context),
+          textColor: Colors.grey,
+          iconColor: Colors.grey,
+          // Route to vote page
+          // onTap: () => Navigator.of(context).push(
+          //   MaterialPageRoute(
+          //     builder: (context) => const Vote(),
+          //   ),
+          // ),
+          //#endregion
         ),
         const Divider(),
         ListTile(
           leading: const Icon(Icons.logout),
-          title: const Text('Sair'),
+          title: const Text('logout'),
           onTap: () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) {
               _endSession();
@@ -113,4 +119,21 @@ class MenuItems extends StatelessWidget {
       ],
     );
   }
+}
+
+// temporary class
+Future<String?> availabilitySoonNotice(context){
+  return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Availability Soon'),
+          content: const Text('Sorry!\n\nThis functionality is not yet available.\n\nTry again later, please! ;)'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
 }
