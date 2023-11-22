@@ -19,7 +19,7 @@ public class ScoreboardService {
 
     public List<ScoreboardDto> getScoreboard(){
         return repository
-                .findAll()
+                .findWithUserName()
                 .stream()
                 .map(p -> modelMapper.map(p, ScoreboardDto.class))
                 .toList();
