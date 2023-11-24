@@ -1,44 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:pudim_douro/http/webclients/login_webclient.dart';
+import 'package:pudim_douro/models/login.dart';
+import 'package:pudim_douro/models/signup.dart';
 import 'package:pudim_douro/screens/home.dart';
 
-const users = {
-  'user@teste.com': '123',
-  'admin@teste.com': 'admin',
-};
-
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+  final LoginWebClient _webClient = LoginWebClient();
 
   Duration get loginTime => const Duration(milliseconds: 2250);
 
   Future<String?> _authUser(LoginData data) {
     debugPrint('Name: ${data.name}, Password: ${data.password}');
     return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'User not exists';
-      }
-      if (users[data.name] != data.password) {
-        return 'Password does not match';
-      }
-      return null;
+      return _webClient.login(Login.fromLoginData(data));
     });
   }
 
   Future<String?> _signupUser(SignupData data) {
     debugPrint('Signup Name: ${data.name}, Password: ${data.password}');
     return Future.delayed(loginTime).then((_) {
-      return null;
+      return _webClient.signup(Signup.fromSignupData(data));
     });
   }
 
-  Future<String?> _recoverPassword(String name) {
+  Future<String?> _recoverPassword(String name) { 
     debugPrint('Name: $name');
     return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(name)) {
-        return 'User not exists';
-      }
-      return null;
+      return 'Sorry! This functionality is not yet available. Try again later, please! ;)';
     });
   }
 
@@ -48,6 +38,12 @@ class LoginScreen extends StatelessWidget {
       title: 'Pudim D`Ouro',
       onLogin: _authUser,
       onSignup: _signupUser,
+      additionalSignupFields: const [
+        UserFormField(keyName: 'Name'),
+        UserFormField(keyName: 'Surname'),
+        UserFormField(keyName: 'Nickname'),
+        UserFormField(keyName: 'Token'),
+      ],
       onSubmitAnimationCompleted: () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const Home(),

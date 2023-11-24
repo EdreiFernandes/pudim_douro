@@ -1,7 +1,7 @@
 package br.com.mountainfortress.PudimDouroAPI.service;
 
-import br.com.mountainfortress.PudimDouroAPI.dto.ScoreboardDto;
-import br.com.mountainfortress.PudimDouroAPI.repository.ScoreboardRepository;
+import br.com.mountainfortress.PudimDouroAPI.dto.EditionDto;
+import br.com.mountainfortress.PudimDouroAPI.repository.EditionRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,18 +9,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ScoreboardService {
+public class EditionService {
 
     @Autowired
-    private ScoreboardRepository repository;
+    private EditionRepository repository;
+
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<ScoreboardDto> getScoreboard(){
+    public List<EditionDto> getEditionHistory(){
         return repository
-                .findWithUserName()
+                .findHistory()
                 .stream()
-                .map(p -> modelMapper.map(p, ScoreboardDto.class))
+                .map(p -> modelMapper.map(p, EditionDto.class))
                 .toList();
     }
 }

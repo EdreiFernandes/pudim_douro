@@ -1,8 +1,10 @@
 package br.com.mountainfortress.PudimDouroAPI.controller;
 
 import br.com.mountainfortress.PudimDouroAPI.dto.LoginDto;
+import br.com.mountainfortress.PudimDouroAPI.dto.SignupDto;
 import br.com.mountainfortress.PudimDouroAPI.dto.UserDto;
 import br.com.mountainfortress.PudimDouroAPI.service.LoginService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,14 +24,16 @@ public class LoginController {
     private LoginService service;
 
     @PostMapping("/new")
-    public ResponseEntity<String> createUserLogin(@RequestBody LoginDto dto, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<String> createUserLogin(@RequestBody SignupDto dto, UriComponentsBuilder uriBuilder){
         try {
             UserDto user = service.createUserLogin(dto);
             URI address = uriBuilder.path("/api/user/{email}").buildAndExpand(user.getEmail()).toUri();
 
-            return ResponseEntity.created(address).body(user.toString());
+            return ResponseEntity.created(address).body(user.toJson());
         } catch (LoginException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
@@ -38,9 +42,11 @@ public class LoginController {
         try {
             UserDto user = service.tryToLogin(dto);
 
-            return ResponseEntity.accepted().body(user.toString());
+            return ResponseEntity.accepted().body(user.toJson());
         } catch (LoginException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 }

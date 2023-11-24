@@ -1,7 +1,7 @@
 package br.com.mountainfortress.PudimDouroAPI.controller;
 
-import br.com.mountainfortress.PudimDouroAPI.dto.ScoreboardDto;
-import br.com.mountainfortress.PudimDouroAPI.service.ScoreboardService;
+import br.com.mountainfortress.PudimDouroAPI.dto.EditionDto;
+import br.com.mountainfortress.PudimDouroAPI.service.EditionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,17 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/scoreboard")
-public class ScoreboardController {
-
+@RequestMapping("/api/edition")
+public class EditionController {
     @Autowired
-    private ScoreboardService service;
+    private EditionService service;
 
     @GetMapping
-    public ResponseEntity<String> getScoreboard(){
-        List<ScoreboardDto> scoreboard = service.getScoreboard();
+    public ResponseEntity<String> getEditionHistory(){
+        List<EditionDto> editions = service.getEditionHistory();
         try {
-            return ResponseEntity.ok().body(ScoreboardDto.toJson(scoreboard));
+            return ResponseEntity.ok().body(EditionDto.toJson(editions));
         } catch (JsonProcessingException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
