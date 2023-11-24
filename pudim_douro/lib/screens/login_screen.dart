@@ -25,10 +25,10 @@ class LoginScreen extends StatelessWidget {
     });
   }
 
-  Future<String?> _recoverPassword(String name) {
+  Future<String?> _recoverPassword(String name) { 
     debugPrint('Name: $name');
     return Future.delayed(loginTime).then((_) {
-      return "Not implemented yet";
+      return 'Sorry! This functionality is not yet available. Try again later, please! ;)';
     });
   }
 
