@@ -6,6 +6,8 @@ final Client client = InterceptedClient.build(interceptors: [
   LoggingInterceptor(),
 ]);
 
+const defaultTimeout = Duration(minutes: 1);
+
 const String apiUrl = '192.168.15.150:8080';
 
 final Uri userUrl = Uri.http(apiUrl, '/api/user');

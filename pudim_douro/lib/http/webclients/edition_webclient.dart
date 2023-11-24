@@ -7,7 +7,7 @@ import 'package:pudim_douro/models/edition.dart';
 
 class EditionWebClient {
   Future<List<Edition>> getEditionHistory() async {
-    final Response response = await client.get(editionUrl);
+    final Response response = await client.get(editionUrl).timeout(defaultTimeout);
 
     final List<dynamic> decodedJson = jsonDecode(response.body);
     List<Edition> editionHistory =

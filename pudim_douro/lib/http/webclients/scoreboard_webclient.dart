@@ -7,7 +7,7 @@ import 'package:pudim_douro/models/scoreboard_line.dart';
 
 class ScoreboardWebClient {
   Future<List<ScoreboardLine>> getScoreboard() async {
-    final Response response = await client.get(scoreboardUrl);
+    final Response response = await client.get(scoreboardUrl).timeout(defaultTimeout);
 
     final List<dynamic> decodedJson = jsonDecode(response.body);
     List<ScoreboardLine> scoreboard = decodedJson
