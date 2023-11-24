@@ -11,6 +11,7 @@ public final class ErrorMessage {
     public static final String DUPLICATE_VOTE = "Your vote has already been registered";
     public static final String NOT_SUBSCRIBED = "Selected user is not subscribed to this edition";
     public static final String EQUAL_USERS = "Users are equal in more than one position";
+    public static final String AVAILABLE_SOON = "'Sorry! This functionality is not yet available. Try again later, please!";
 
     private ErrorMessage(){
         throw new AssertionError();

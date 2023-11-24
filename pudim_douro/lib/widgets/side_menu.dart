@@ -125,7 +125,7 @@ Future<String?> availabilitySoonNotice(context){
   return showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text('Availability Soon'),
+          title: const Text('Available soon'),
           content: const Text('Sorry!\n\nThis functionality is not yet available.\n\nTry again later, please! ;)'),
           actions: <Widget>[
             TextButton(
