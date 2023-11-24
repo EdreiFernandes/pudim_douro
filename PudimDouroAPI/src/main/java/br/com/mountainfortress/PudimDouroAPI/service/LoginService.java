@@ -30,9 +30,12 @@ public class LoginService {
         RegistrationTokenDto currentToken = tokenService.getCurrentActiveToken();
         if(currentToken == null || !currentToken.getToken().equals(dto.getToken())) throw new LoginException(ErrorMessage.INVALID_TOKEN);
         if(userService.getUser(dto.getEmail()) != null) throw new LoginException(ErrorMessage.REGISTERED_EMAIL);
+        if(userService.usedNickname(dto.getNickname())) throw new LoginException(ErrorMessage.USED_NICKNAME);
 
         UserDto user = modelMapper.map(dto, UserDto.class);
         user.setName(dto.getName());
+        user.setSurname(dto.getSurname());
+        user.setNickname(dto.getNickname());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userService.createUser(user);
     }

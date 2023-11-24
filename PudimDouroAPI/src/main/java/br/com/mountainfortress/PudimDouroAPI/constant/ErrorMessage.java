@@ -6,6 +6,7 @@ public final class ErrorMessage {
     public static final String REGISTERED_USER = "User is already registered";
     public static final String INVALID_TOKEN = "Token is not valid!";
     public static final String REGISTERED_EMAIL = "E-mail already registered!";
+    public static final String USED_NICKNAME = "Nickname already used!";
     public static final String WRONG_LOGIN = "Wrong email or password!";
     public static final String DUPLICATE_VOTE = "Your vote has already been registered";
     public static final String NOT_SUBSCRIBED = "Selected user is not subscribed to this edition";

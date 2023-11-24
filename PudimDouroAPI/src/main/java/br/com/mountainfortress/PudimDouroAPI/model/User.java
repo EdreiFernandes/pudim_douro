@@ -30,6 +30,14 @@ public class User {
     private String name;
 
     @NotNull
+    @Size(max = 50)
+    private String surname;
+
+    @NotNull
+    @Size(max = 50)
+    private String nickname;
+
+    @NotNull
     @Size(max = 100)
     private String password;
 

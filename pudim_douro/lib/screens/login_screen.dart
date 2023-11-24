@@ -40,6 +40,8 @@ class LoginScreen extends StatelessWidget {
       onSignup: _signupUser,
       additionalSignupFields: const [
         UserFormField(keyName: 'Name'),
+        UserFormField(keyName: 'Surname'),
+        UserFormField(keyName: 'Nickname'),
         UserFormField(keyName: 'Token'),
       ],
       onSubmitAnimationCompleted: () {

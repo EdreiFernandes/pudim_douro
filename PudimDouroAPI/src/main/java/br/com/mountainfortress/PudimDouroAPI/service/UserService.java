@@ -35,6 +35,11 @@ public class UserService {
         return modelMapper.map(result, UserDto.class);
     }
 
+    public  boolean usedNickname(String nickname){
+        User result = userRepository.findByNickname(nickname);
+        return result != null;
+    }
+
     public UserDto createUser(UserDto dto){
         User user = modelMapper.map(dto, User.class);
         user.setActive(true);

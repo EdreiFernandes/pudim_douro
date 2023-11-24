@@ -4,7 +4,6 @@ import 'package:pudim_douro/models/user.dart';
 import 'package:pudim_douro/screens/home.dart';
 import 'package:pudim_douro/screens/login_screen.dart';
 import 'package:pudim_douro/screens/history.dart';
-import 'package:pudim_douro/screens/vote.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({super.key});

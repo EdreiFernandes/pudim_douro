@@ -13,6 +13,8 @@ import lombok.ToString;
 public class UserDto extends JsonableDto {
     private String email;
     private String name;
+    private String surname;
+    private String nickname;
     private String password;
     private boolean active;
 }
