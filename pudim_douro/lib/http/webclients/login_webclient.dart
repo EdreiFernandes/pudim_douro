@@ -4,18 +4,19 @@ import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:http/http.dart';
 import 'package:pudim_douro/http/webclient.dart';
 import 'package:pudim_douro/models/login.dart';
+import 'package:pudim_douro/models/signup.dart';
 import 'package:pudim_douro/models/user.dart';
 
 class LoginWebClient {
-  Future<String?> signup(Login login) async {
-    final String loginJson = jsonEncode(login.toJson());
+  Future<String?> signup(Signup signup) async {
+    final String signupJson = jsonEncode(signup.toJson());
 
     final Response response = await client.post(
       signupUrl,
       headers: {
         'Content-type': 'application/json',
       },
-      body: loginJson,
+      body: signupJson,
     );
 
     if (response.statusCode == 201) {

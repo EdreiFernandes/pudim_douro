@@ -1,6 +1,7 @@
 package br.com.mountainfortress.PudimDouroAPI.controller;
 
 import br.com.mountainfortress.PudimDouroAPI.dto.LoginDto;
+import br.com.mountainfortress.PudimDouroAPI.dto.SignupDto;
 import br.com.mountainfortress.PudimDouroAPI.dto.UserDto;
 import br.com.mountainfortress.PudimDouroAPI.service.LoginService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,7 +24,7 @@ public class LoginController {
     private LoginService service;
 
     @PostMapping("/new")
-    public ResponseEntity<String> createUserLogin(@RequestBody LoginDto dto, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<String> createUserLogin(@RequestBody SignupDto dto, UriComponentsBuilder uriBuilder){
         try {
             UserDto user = service.createUserLogin(dto);
             URI address = uriBuilder.path("/api/user/{email}").buildAndExpand(user.getEmail()).toUri();

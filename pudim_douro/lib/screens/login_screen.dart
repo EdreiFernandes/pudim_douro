@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:pudim_douro/http/webclients/login_webclient.dart';
 import 'package:pudim_douro/models/login.dart';
+import 'package:pudim_douro/models/signup.dart';
 import 'package:pudim_douro/screens/home.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -20,7 +21,7 @@ class LoginScreen extends StatelessWidget {
   Future<String?> _signupUser(SignupData data) {
     debugPrint('Signup Name: ${data.name}, Password: ${data.password}');
     return Future.delayed(loginTime).then((_) {
-      return _webClient.signup(Login.fromSignupData(data));
+      return _webClient.signup(Signup.fromSignupData(data));
     });
   }
 
@@ -37,7 +38,10 @@ class LoginScreen extends StatelessWidget {
       title: 'Pudim D`Ouro',
       onLogin: _authUser,
       onSignup: _signupUser,
-      additionalSignupFields: const [UserFormField(keyName: 'Token')],
+      additionalSignupFields: const [
+        UserFormField(keyName: 'Name'),
+        UserFormField(keyName: 'Token'),
+      ],
       onSubmitAnimationCompleted: () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const Home(),
