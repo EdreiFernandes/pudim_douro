@@ -1,5 +1,6 @@
 package br.com.mountainfortress.pudimdouroapi.controller;
 
+import br.com.mountainfortress.pudimdouroapi.dto.JsonableDto;
 import br.com.mountainfortress.pudimdouroapi.dto.ScoreboardDto;
 import br.com.mountainfortress.pudimdouroapi.service.ScoreboardService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,7 +23,7 @@ public class ScoreboardController {
     public ResponseEntity<String> getScoreboard(){
         List<ScoreboardDto> scoreboard = service.getScoreboard();
         try {
-            return ResponseEntity.ok().body(ScoreboardDto.toJson(scoreboard));
+            return ResponseEntity.ok().body(JsonableDto.toJson(scoreboard));
         } catch (JsonProcessingException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }

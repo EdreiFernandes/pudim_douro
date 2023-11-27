@@ -1,6 +1,7 @@
 package br.com.mountainfortress.pudimdouroapi.controller;
 
 import br.com.mountainfortress.pudimdouroapi.dto.EditionDto;
+import br.com.mountainfortress.pudimdouroapi.dto.JsonableDto;
 import br.com.mountainfortress.pudimdouroapi.service.EditionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class EditionController {
     public ResponseEntity<String> getEditionHistory(){
         List<EditionDto> editions = service.getEditionHistory();
         try {
-            return ResponseEntity.ok().body(EditionDto.toJson(editions));
+            return ResponseEntity.ok().body(JsonableDto.toJson(editions));
         } catch (JsonProcessingException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }

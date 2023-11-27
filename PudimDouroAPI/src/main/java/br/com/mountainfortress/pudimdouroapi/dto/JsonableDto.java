@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 import java.util.List;
 
-abstract class JsonableDto {
+public abstract class JsonableDto {
     public String toJson() throws JsonProcessingException {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         return ow.writeValueAsString(this);
