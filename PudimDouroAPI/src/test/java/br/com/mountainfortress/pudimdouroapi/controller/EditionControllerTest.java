@@ -19,13 +19,14 @@ class EditionControllerTest {
 
     @Test
     void getEditionHistoryShouldReturnHistory() {
-        String url = "http://localhost:" + port + "/api/scoreboard";
+        String url = "http://localhost:" + port + "/api/edition";
         assertThat(
                 this.restTemplate.getForObject(url, String.class))
                 .contains("id")
-                .contains("user")
-                .contains("gold_medal")
-                .contains("silver_medal")
-                .contains("brass_medal");
+                .contains("edition_year")
+                .contains("active")
+                .contains("first_place")
+                .contains("second_place")
+                .contains("third_place");
     }
 }
