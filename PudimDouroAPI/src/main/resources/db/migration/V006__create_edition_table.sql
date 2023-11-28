@@ -6,7 +6,7 @@ CREATE TABLE edition (
  second_place varchar(50),
  third_place varchar(50),
 PRIMARY KEY (id),
-FOREIGN KEY(first_place) references user(email),
-FOREIGN KEY(second_place) references user(email),
-FOREIGN KEY(third_place) references user(email)
+FOREIGN KEY(first_place) references `user`(email),
+FOREIGN KEY(second_place) references `user`(email),
+FOREIGN KEY(third_place) references `user`(email)
 );
