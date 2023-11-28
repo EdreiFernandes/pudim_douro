@@ -1,5 +1,5 @@
 CREATE TABLE vote (
- id INTEGER NOT NULL auto_increment,
+ id SERIAL NOT NULL,
  user_profile INTEGER NOT NULL,
  edition INTEGER NOT NULL,
  first_place INTEGER NOT NULL,

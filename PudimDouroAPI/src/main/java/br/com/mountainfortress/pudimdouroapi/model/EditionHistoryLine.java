@@ -11,7 +11,7 @@ import java.time.Year;
 @ToString
 public class EditionHistoryLine {
     private Integer id;
-    private Year edition_year;
+    private String edition_year;
     private boolean active;
     private String first_place;
     private String second_place;

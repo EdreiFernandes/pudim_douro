@@ -1,7 +1,10 @@
 CREATE TABLE user_profile (
- email varchar(50) NOT NULL,
- name varchar(50) NOT NULL,
- password varchar(20) NOT NULL,
- active boolean NOT NULL,
-PRIMARY KEY (email)
+ id SERIAL NOT NULL,
+ email VARCHAR(50) NOT NULL,
+ name VARCHAR(50) NOT NULL,
+ surname VARCHAR(50) NOT NULL,
+ nickname VARCHAR(50) NOT NULL,
+ password VARCHAR(100) NOT NULL,
+ active BOOLEAN NOT NULL,
+PRIMARY KEY (id)
 );

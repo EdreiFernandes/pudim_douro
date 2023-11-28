@@ -1,3 +1,0 @@
-ALTER TABLE user_profile
-ADD COLUMN surname VARCHAR(50) NOT NULL AFTER name,
-ADD COLUMN nickname VARCHAR(50) NOT NULL AFTER surname;
