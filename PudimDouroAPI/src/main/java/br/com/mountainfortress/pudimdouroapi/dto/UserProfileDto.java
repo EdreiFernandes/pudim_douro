@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class UserDto extends JsonableDto {
+public class UserProfileDto extends JsonableDto {
     private String email;
     private String name;
     private String surname;

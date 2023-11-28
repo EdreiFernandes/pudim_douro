@@ -2,23 +2,23 @@ package br.com.mountainfortress.pudimdouroapi.service;
 
 import br.com.mountainfortress.pudimdouroapi.constant.ErrorMessage;
 import br.com.mountainfortress.pudimdouroapi.constant.SuccessMessage;
-import br.com.mountainfortress.pudimdouroapi.dto.UserDto;
+import br.com.mountainfortress.pudimdouroapi.dto.UserProfileDto;
 import br.com.mountainfortress.pudimdouroapi.exception.InscriptionException;
 import br.com.mountainfortress.pudimdouroapi.model.Edition;
 import br.com.mountainfortress.pudimdouroapi.model.Inscription;
-import br.com.mountainfortress.pudimdouroapi.model.User;
+import br.com.mountainfortress.pudimdouroapi.model.UserProfile;
 import br.com.mountainfortress.pudimdouroapi.repository.EditionRepository;
 import br.com.mountainfortress.pudimdouroapi.repository.InscriptionRepository;
-import br.com.mountainfortress.pudimdouroapi.repository.UserRepository;
+import br.com.mountainfortress.pudimdouroapi.repository.UserProfileRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserProfileService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserProfileRepository userRepository;
     @Autowired
     private InscriptionRepository inscriptionRepository;
 
@@ -28,38 +28,38 @@ public class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public  UserDto getUser(String email){
-        User result = userRepository.findByEmail(email);
+    public UserProfileDto getUser(String email){
+        UserProfile result = userRepository.findByEmail(email);
         if(result == null) return null;
 
-        return modelMapper.map(result, UserDto.class);
+        return modelMapper.map(result, UserProfileDto.class);
     }
 
-    public  boolean usedNickname(String nickname){
-        User result = userRepository.findByNickname(nickname);
+    public boolean usedNickname(String nickname){
+        UserProfile result = userRepository.findByNickname(nickname);
         return result != null;
     }
 
-    public UserDto createUser(UserDto dto){
-        User user = modelMapper.map(dto, User.class);
-        user.setActive(true);
-        userRepository.save(user);
+    public UserProfileDto createUser(UserProfileDto dto){
+        UserProfile userProfile = modelMapper.map(dto, UserProfile.class);
+        userProfile.setActive(true);
+        userRepository.save(userProfile);
 
-        return modelMapper.map(user, UserDto.class);
+        return modelMapper.map(userProfile, UserProfileDto.class);
     }
 
-    public String inscriptionUserInCurrentEdition(UserDto dto) throws InscriptionException {
-        User user = userRepository.findByEmail(dto.getEmail());
-        if(user == null) throw new InscriptionException(ErrorMessage.USER_NOT_EXIST);
+    public String inscriptionUserInCurrentEdition(UserProfileDto dto) throws InscriptionException {
+        UserProfile userProfile = userRepository.findByEmail(dto.getEmail());
+        if(userProfile == null) throw new InscriptionException(ErrorMessage.USER_NOT_EXIST);
 
         Edition edition = editionRepository.findActive();
         if(edition == null) throw new InscriptionException(ErrorMessage.EDITION_NOT_EXIST);
 
-        Inscription inscription = inscriptionRepository.findByUserAndEdition(user.getId(), edition.getId());
+        Inscription inscription = inscriptionRepository.findByUserAndEdition(userProfile.getId(), edition.getId());
         if(inscription != null) throw new InscriptionException(ErrorMessage.REGISTERED_USER);
 
         inscription = new Inscription();
-        inscription.setUser(user.getId());
+        inscription.setUser_profile(userProfile.getId());
         inscription.setEdition(edition.getId());
         inscriptionRepository.save(inscription);
 

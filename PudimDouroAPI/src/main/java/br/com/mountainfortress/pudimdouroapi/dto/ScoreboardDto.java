@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class ScoreboardDto extends JsonableDto {
     private String id;
-    private String user;
+    private String user_profile;
     private String gold_medal;
     private String silver_medal;
     private String brass_medal;

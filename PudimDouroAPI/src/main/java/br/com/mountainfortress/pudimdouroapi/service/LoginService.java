@@ -4,7 +4,7 @@ import br.com.mountainfortress.pudimdouroapi.constant.ErrorMessage;
 import br.com.mountainfortress.pudimdouroapi.dto.LoginDto;
 import br.com.mountainfortress.pudimdouroapi.dto.RegistrationTokenDto;
 import br.com.mountainfortress.pudimdouroapi.dto.SignupDto;
-import br.com.mountainfortress.pudimdouroapi.dto.UserDto;
+import br.com.mountainfortress.pudimdouroapi.dto.UserProfileDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,36 +19,36 @@ public class LoginService {
     private RegistrationTokenService tokenService;
 
     @Autowired
-    private UserService userService;
+    private UserProfileService userProfileService;
 
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserDto createUserLogin(SignupDto dto) throws LoginException {
+    public UserProfileDto createUserLogin(SignupDto dto) throws LoginException {
         RegistrationTokenDto currentToken = tokenService.getCurrentActiveToken();
         if(currentToken == null || !currentToken.getToken().equals(dto.getToken())) throw new LoginException(ErrorMessage.INVALID_TOKEN);
-        if(userService.getUser(dto.getEmail()) != null) throw new LoginException(ErrorMessage.REGISTERED_EMAIL);
-        if(userService.usedNickname(dto.getNickname())) throw new LoginException(ErrorMessage.USED_NICKNAME);
+        if(userProfileService.getUser(dto.getEmail()) != null) throw new LoginException(ErrorMessage.REGISTERED_EMAIL);
+        if(userProfileService.usedNickname(dto.getNickname())) throw new LoginException(ErrorMessage.USED_NICKNAME);
 
-        UserDto user = modelMapper.map(dto, UserDto.class);
-        user.setName(dto.getName());
-        user.setSurname(dto.getSurname());
-        user.setNickname(dto.getNickname());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userService.createUser(user);
+        UserProfileDto userProfile = modelMapper.map(dto, UserProfileDto.class);
+        userProfile.setName(dto.getName());
+        userProfile.setSurname(dto.getSurname());
+        userProfile.setNickname(dto.getNickname());
+        userProfile.setPassword(passwordEncoder.encode(userProfile.getPassword()));
+        return userProfileService.createUser(userProfile);
     }
 
-    public UserDto tryToLogin(LoginDto dto) throws LoginException {
-        UserDto user = userService.getUser(dto.getEmail());
+    public UserProfileDto tryToLogin(LoginDto dto) throws LoginException {
+        UserProfileDto userProfile = userProfileService.getUser(dto.getEmail());
 
-        boolean wrongLogin = user == null ||
-                !user.isActive() ||
-                !passwordEncoder.matches(dto.getPassword(), user.getPassword());
+        boolean wrongLogin = userProfile == null ||
+                !userProfile.isActive() ||
+                !passwordEncoder.matches(dto.getPassword(), userProfile.getPassword());
 
         if(wrongLogin) throw new LoginException(ErrorMessage.WRONG_LOGIN);
-        user.setPassword(null);
-        return user;
+        userProfile.setPassword(null);
+        return userProfile;
     }
 }

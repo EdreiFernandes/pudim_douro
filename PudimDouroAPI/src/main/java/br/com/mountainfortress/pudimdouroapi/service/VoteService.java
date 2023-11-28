@@ -41,7 +41,7 @@ public class VoteService {
     }
 
     private void checkPreviousVote(Vote vote) throws VoteException {
-        Vote previousVote = voteRepository.findByEditionAndUser(vote.getEdition(), vote.getUser());
+        Vote previousVote = voteRepository.findByEditionAndUser(vote.getEdition(), vote.getUser_profile());
         if(previousVote != null) throw new VoteException(ErrorMessage.DUPLICATE_VOTE);
     }
 
@@ -75,10 +75,10 @@ public class VoteService {
 
         // Contando todos os pontos de acordo com os primeiros colocados
         for (CountedVote currentFirst : first) {
-            var user = currentFirst.getUser();
+            var user = currentFirst.getUser_profile();
 
-            CountedVote currentSecond = second.stream().filter(x -> x.getUser().equals(user)).findFirst().orElse(null);
-            CountedVote currentThird = third.stream().filter(x -> x.getUser().equals(user)).findFirst().orElse(null);
+            CountedVote currentSecond = second.stream().filter(x -> x.getUser_profile().equals(user)).findFirst().orElse(null);
+            CountedVote currentThird = third.stream().filter(x -> x.getUser_profile().equals(user)).findFirst().orElse(null);
 
             Long totalSecond = currentSecond != null ? currentSecond.getVotesAtPosition() : 0 ;
             Long totalThird = currentThird != null ? currentThird.getVotesAtPosition() : 0;
@@ -92,9 +92,9 @@ public class VoteService {
 
         // Contando todos os pontos de acordo com os segundo colocados
         for (CountedVote currentSecond : second) {
-            var user = currentSecond.getUser();
+            var user = currentSecond.getUser_profile();
 
-            CountedVote currentThird = third.stream().filter(x -> x.getUser().equals(user)).findFirst().orElse(null);
+            CountedVote currentThird = third.stream().filter(x -> x.getUser_profile().equals(user)).findFirst().orElse(null);
 
             Long totalThird = currentThird != null ? currentThird.getVotesAtPosition() : 0;
             var totalVotes = currentSecond.getVotesAtPosition() + totalThird;

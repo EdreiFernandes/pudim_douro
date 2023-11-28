@@ -1,2 +1,2 @@
-ALTER TABLE `user`
+ALTER TABLE user_profile
 MODIFY COLUMN password VARCHAR(100) NOT NULL;
