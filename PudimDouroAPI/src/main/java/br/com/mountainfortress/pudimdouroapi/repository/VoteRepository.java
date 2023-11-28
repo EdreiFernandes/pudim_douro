@@ -12,8 +12,8 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
     String NEW_COUNTED_VOTE = "new br.com.mountainfortress.pudimdouroapi.model.CountedVote";
 
-    @Query(value = "FROM Vote v WHERE v.edition = :edition_id and v.user = :user_id")
-    Vote findByEditionAndUser(@Param("edition_id") Integer editionId, @Param("user_id") Integer userId);
+    @Query(value = "FROM Vote v WHERE v.edition = :edition_id and v.user_profile = :user_profile_id")
+    Vote findByEditionAndUser(@Param("edition_id") Integer editionId, @Param("user_profile_id") Integer userProfileId);
 
     @Query(value = "SELECT " + NEW_COUNTED_VOTE + "(first_place, COUNT(first_place)) FROM Vote v WHERE v.edition = :edition_id GROUP BY first_place ORDER BY first_place")
     List<CountedVote> countFirstPlaceInEdition(@Param("edition_id") Integer editionId);

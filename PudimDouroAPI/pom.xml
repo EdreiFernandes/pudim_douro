@@ -30,17 +30,6 @@
 			<artifactId>flyway-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-mysql</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
@@ -108,9 +97,9 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>9.8.1</version>
 				<configuration>
-					<url>jdbc:mysql://localhost:3306/pudim-douro?createDatabaseIfNotExist=true</url>
-					<user>root</user>
-					<password>%EfO42278%</password>
+					<url>${env.DATABASE_URL}?currentSchema=${env.POSTGRES_SCHEMA}</url>
+					<user>${env.DB_USERNAME}</user>
+					<password>${env.DB_PASSWORD}</password>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -8,6 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class CountedVote {
-    private Integer user;
+    private Integer user_profile;
     private Long votesAtPosition;
 }

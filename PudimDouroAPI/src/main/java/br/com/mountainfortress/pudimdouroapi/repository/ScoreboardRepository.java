@@ -13,6 +13,6 @@ public interface ScoreboardRepository extends JpaRepository<Scoreboard, Integer>
 
     @Query(value = "SELECT " + NEW_SCOREBOARD_WITH_NAME +
             "(s.id, u.name, s.gold_medal, s.silver_medal, s.brass_medal)" +
-            "FROM Scoreboard s INNER JOIN User u ON u.id = s.user")
+            "FROM Scoreboard s INNER JOIN UserProfile u ON u.id = s.user_profile")
     List<ScoreboardWithName> findWithUserName();
 }

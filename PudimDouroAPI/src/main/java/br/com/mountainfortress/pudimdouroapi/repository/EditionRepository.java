@@ -17,8 +17,8 @@ public interface EditionRepository extends JpaRepository<Edition, Integer> {
     @Query(value = "SELECT " + NEW_EDITION_HISTORY_LINE +
             "(e.id, e.edition_year, e.active, u_first_place.name, u_second_place.name, u_third_place.name)" +
             "FROM Edition e " +
-            "INNER JOIN User u_first_place ON e.first_place = u_first_place.id " +
-            "INNER JOIN User u_second_place ON e.second_place = u_second_place.id " +
-            "INNER JOIN User u_third_place ON e.third_place = u_third_place.id")
+            "INNER JOIN UserProfile u_first_place ON e.first_place = u_first_place.id " +
+            "INNER JOIN UserProfile u_second_place ON e.second_place = u_second_place.id " +
+            "INNER JOIN UserProfile u_third_place ON e.third_place = u_third_place.id")
     List<EditionHistoryLine> findHistory();
 }

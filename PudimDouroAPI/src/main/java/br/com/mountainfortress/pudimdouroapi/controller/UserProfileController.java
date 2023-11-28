@@ -1,8 +1,8 @@
 package br.com.mountainfortress.pudimdouroapi.controller;
 
 import br.com.mountainfortress.pudimdouroapi.constant.ErrorMessage;
-import br.com.mountainfortress.pudimdouroapi.dto.UserDto;
-import br.com.mountainfortress.pudimdouroapi.service.UserService;
+import br.com.mountainfortress.pudimdouroapi.dto.UserProfileDto;
+import br.com.mountainfortress.pudimdouroapi.service.UserProfileService;
 import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,13 +12,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/user")
-public class UserController {
+public class UserProfileController {
 
     @Autowired
-    private UserService service;
+    private UserProfileService service;
 
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody UserDto dto, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<String> createUser(@RequestBody UserProfileDto dto, UriComponentsBuilder uriBuilder){
         var error = new ExecutionControl.NotImplementedException(ErrorMessage.AVAILABLE_SOON);
         return new ResponseEntity<>(error.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
 
@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/inscription")
-    public ResponseEntity<String> inscription(@RequestBody UserDto dto){
+    public ResponseEntity<String> inscription(@RequestBody UserProfileDto dto){
         var error = new ExecutionControl.NotImplementedException(ErrorMessage.AVAILABLE_SOON);
         return new ResponseEntity<>(error.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
 

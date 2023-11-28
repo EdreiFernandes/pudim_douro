@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class VoteDto {
     private String id;
-    private String user;
+    private String user_profile;
     private String edition;
     private String first_place;
     private String second_place;

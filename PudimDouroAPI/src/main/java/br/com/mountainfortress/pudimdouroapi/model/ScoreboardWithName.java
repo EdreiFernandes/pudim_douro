@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class ScoreboardWithName {
     private Integer id;
-    private String user;
+    private String user_profile;
     private Integer gold_medal;
     private Integer silver_medal;
     private Integer brass_medal;

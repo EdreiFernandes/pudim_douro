@@ -18,7 +18,7 @@ public class Vote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull
-    private Integer user;
+    private Integer user_profile;
     @NotNull
     private Integer edition;
     @NotNull

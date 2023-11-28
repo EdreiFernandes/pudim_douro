@@ -22,7 +22,7 @@ public class Edition {
     private Integer id;
 
     @NotNull
-    private Year edition_year;
+    private String edition_year;
 
     @NotNull
     private boolean active;

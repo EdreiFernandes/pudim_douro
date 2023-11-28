@@ -19,7 +19,7 @@ public class Inscription {
     private Integer id;
 
     @NotNull
-    private Integer user;
+    private Integer user_profile;
 
     @NotNull
     private Integer edition;

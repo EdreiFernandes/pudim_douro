@@ -40,8 +40,7 @@ class Scoreboard extends StatelessWidget {
     return amount.toString();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _createScoreboard(BuildContext context, List<ScoreboardLine> scoreboard) {
     Base64Decoder base64 = const Base64Decoder();
 
     Uint8List goldImage = base64.convert(goldImageBase64);
@@ -49,54 +48,69 @@ class Scoreboard extends StatelessWidget {
     Uint8List brassImage = base64.convert(brassImageBase64);
     Uint8List totalImage = base64.convert(totalImageBase64);
 
+    return DataTable(
+      columnSpacing: MediaQuery.of(context).size.width / 8,
+      columns: <DataColumn>[
+        const DataColumn(
+          label: Expanded(
+            child: Text(
+              'Nome',
+            ),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: SvgPicture.memory(goldImage),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: SvgPicture.memory(silverImage),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: SvgPicture.memory(brassImage),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: SvgPicture.memory(totalImage),
+          ),
+        ),
+      ],
+      rows: scoreboard.isEmpty
+          ? const [
+              DataRow(cells: [
+                DataCell(Text("There")),
+                DataCell(Text("is")),
+                DataCell(Text("no")),
+                DataCell(Text("data")),
+                DataCell(Text("yet!")),
+              ])
+            ]
+          : scoreboard
+              .map(
+                (line) => DataRow(cells: [
+                  DataCell(Text(line.user)),
+                  DataCell(Text(line.goldMedal)),
+                  DataCell(Text(line.silverMedal)),
+                  DataCell(Text(line.brassMedal)),
+                  DataCell(Text(_medalsAmount(line))),
+                ]),
+              )
+              .toList(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: FutureBuilder(
         future: _loadScoreboard(),
         builder: (context, tableRows) {
           return tableRows.data != null
-              ? DataTable(
-                  columnSpacing: MediaQuery.of(context).size.width / 8,
-                  columns: <DataColumn>[
-                    const DataColumn(
-                      label: Expanded(
-                        child: Text(
-                          'Nome',
-                        ),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Expanded(
-                        child: SvgPicture.memory(goldImage),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Expanded(
-                        child: SvgPicture.memory(silverImage),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Expanded(
-                        child: SvgPicture.memory(brassImage),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Expanded(
-                        child: SvgPicture.memory(totalImage),
-                      ),
-                    ),
-                  ],
-                  rows: tableRows.data!
-                      .map(
-                        (line) => DataRow(cells: [
-                          DataCell(Text(line.user)),
-                          DataCell(Text(line.goldMedal)),
-                          DataCell(Text(line.silverMedal)),
-                          DataCell(Text(line.brassMedal)),
-                          DataCell(Text(_medalsAmount(line))),
-                        ]),
-                      )
-                      .toList(),
-                )
+              ? _createScoreboard(context, tableRows.data!)
               : const CircularProgressIndicator();
         },
       ),
