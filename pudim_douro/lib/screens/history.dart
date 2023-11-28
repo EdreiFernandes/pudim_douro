@@ -50,7 +50,9 @@ class _HistoryState extends State<History> {
               ? _renderYearsResume()
               : const Padding(
                   padding: EdgeInsets.all(32.0),
-                  child: Center(child: CircularProgressIndicator()),
+                  child: Center(
+                    child: Text("There is no data yet!"),
+                  ),
                 ),
         ),
       ),
