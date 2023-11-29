@@ -15,10 +15,15 @@ public interface EditionRepository extends JpaRepository<Edition, Integer> {
     Edition findActive();
 
     @Query(value = "SELECT " + NEW_EDITION_HISTORY_LINE +
-            "(e.id, e.edition_year, e.active, u_first_place.name, u_second_place.name, u_third_place.name)" +
+            "(e.id, e.edition_year, e.active, " +
+            "COALESCE(u_first_place.name, 'Unknown'), " +
+            "COALESCE(u_second_place.name, 'Unknown'), " +
+            "COALESCE(u_third_place.name, 'Unknown')) " +
             "FROM Edition e " +
-            "INNER JOIN UserProfile u_first_place ON e.first_place = u_first_place.id " +
-            "INNER JOIN UserProfile u_second_place ON e.second_place = u_second_place.id " +
-            "INNER JOIN UserProfile u_third_place ON e.third_place = u_third_place.id")
+            "LEFT JOIN UserProfile u_first_place ON e.first_place = u_first_place.id " +
+            "LEFT JOIN UserProfile u_second_place ON e.second_place = u_second_place.id " +
+            "LEFT JOIN UserProfile u_third_place ON e.third_place = u_third_place.id " +
+            "WHERE e.active = FALSE " +
+            "ORDER BY e.id DESC")
     List<EditionHistoryLine> findHistory();
 }
