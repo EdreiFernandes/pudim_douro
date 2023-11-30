@@ -15,7 +15,7 @@ class ScoreboardLine {
 
   ScoreboardLine.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        user = json['user'],
+        user = json['user_profile'],
         goldMedal = json['gold_medal'],
         silverMedal = json['silver_medal'],
         brassMedal = json['brass_medal'];
