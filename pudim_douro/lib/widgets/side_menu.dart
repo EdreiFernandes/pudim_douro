@@ -63,10 +63,6 @@ class MenuItems extends StatelessWidget {
     super.key,
   });
 
-  Future<void> _endSession() async {
-    await SessionManager().destroy();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -109,10 +105,9 @@ class MenuItems extends StatelessWidget {
           leading: const Icon(Icons.logout),
           title: const Text('logout'),
           onTap: () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) {
-              _endSession();
-              return LoginScreen();
-            }),
+            MaterialPageRoute(
+              builder: (context) => LoginScreen(),
+            ),
           ),
         ),
       ],
@@ -121,18 +116,19 @@ class MenuItems extends StatelessWidget {
 }
 
 // temporary class
-Future<String?> availabilitySoonNotice(context){
+Future<String?> availabilitySoonNotice(context) {
   return showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Available soon'),
-          content: const Text('Sorry!\n\nThis functionality is not yet available.\n\nTry again later, please! ;)'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      title: const Text('Available soon'),
+      content: const Text(
+          'Sorry!\n\nThis functionality is not yet available.\n\nTry again later, please! ;)'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'OK'),
+          child: const Text('OK'),
         ),
-      );
+      ],
+    ),
+  );
 }

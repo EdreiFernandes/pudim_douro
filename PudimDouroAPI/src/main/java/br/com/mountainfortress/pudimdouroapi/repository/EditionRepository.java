@@ -16,9 +16,9 @@ public interface EditionRepository extends JpaRepository<Edition, Integer> {
 
     @Query(value = "SELECT " + NEW_EDITION_HISTORY_LINE +
             "(e.id, e.edition_year, e.active, " +
-            "COALESCE(u_first_place.name, 'Unknown'), " +
-            "COALESCE(u_second_place.name, 'Unknown'), " +
-            "COALESCE(u_third_place.name, 'Unknown')) " +
+            "COALESCE(u_first_place.nickname, 'Unknown'), " +
+            "COALESCE(u_second_place.nickname, 'Unknown'), " +
+            "COALESCE(u_third_place.nickname, 'Unknown')) " +
             "FROM Edition e " +
             "LEFT JOIN UserProfile u_first_place ON e.first_place = u_first_place.id " +
             "LEFT JOIN UserProfile u_second_place ON e.second_place = u_second_place.id " +
