@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:pudim_douro/http/webclients/login_webclient.dart';
 import 'package:pudim_douro/models/login.dart';
 import 'package:pudim_douro/models/signup.dart';
@@ -32,8 +33,13 @@ class LoginScreen extends StatelessWidget {
     });
   }
 
+  Future<void> _clearSession() async {
+    await SessionManager().destroy();
+  }
+
   @override
   Widget build(BuildContext context) {
+    _clearSession();
     return FlutterLogin(
       title: 'Pudim D`Ouro',
       onLogin: _authUser,
