@@ -1,0 +1,10 @@
+CREATE TABLE user_profile (
+ id SERIAL NOT NULL,
+ email VARCHAR(50) NOT NULL,
+ name VARCHAR(50) NOT NULL,
+ surname VARCHAR(50) NOT NULL,
+ nickname VARCHAR(50) NOT NULL,
+ password VARCHAR(100) NOT NULL,
+ active BOOLEAN NOT NULL,
+PRIMARY KEY (id)
+);
