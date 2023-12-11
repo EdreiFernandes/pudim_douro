@@ -1,4 +1,4 @@
-FROM oraclelinux:8-slim AS build
+FROM debian:12-slim AS build
 
 RUN apt-get update
 RUN apt-get install openjdk-20-jdk -y
