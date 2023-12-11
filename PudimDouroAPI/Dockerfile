@@ -1,7 +1,7 @@
 FROM debian:12-slim AS build
 
 RUN apt-get update
-RUN apt-get install openjdk-20-jdk -y
+RUN apt-get install openjdk:22-slim -y
 COPY . .
 
 RUN apt-get install maven -y
