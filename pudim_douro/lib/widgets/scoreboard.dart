@@ -2,28 +2,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-List<dynamic> tableRows = [
-  {
-    'name': 'Solange',
-    'gold': 1,
-    'silver': 1,
-    'brass': 1,
-  },
-  {
-    'name': 'Wellington',
-    'gold': 0,
-    'silver': 2,
-    'brass': 4,
-  },
-  {
-    'name': 'Guga',
-    'gold': 0,
-    'silver': 0,
-    'brass': 10,
-  },
-];
+import 'package:pudim_douro/http/webclients/scoreboard_webclient.dart';
+import 'package:pudim_douro/models/scoreboard_line.dart';
 
 String goldImageBase64 = "PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHJvbGU9ImltZyIgdmlld0JveD0iMCAwIDE2IDE2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBvcGFjaXR5PSIwLjkiPgo8bWFzayBpZD0icGF0aC0xLWluc2lkZS0xIiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik04IDBDMy42IDAgMCAzLjYgMCA4QzAgMTIuNCAzLjYgMTYgOCAxNkMxMi40IDE2IDE2IDEyLjQgMTYgOEMxNiAzLjYgMTIuNCAwIDggMFoiLz4KPC9tYXNrPgo8cGF0aCBkPSJNOCAtMkMyLjQ5NTQzIC0yIC0yIDIuNDk1NDMgLTIgOEgyQzIgNC43MDQ1NyA0LjcwNDU3IDIgOCAyVi0yWk0tMiA4Qy0yIDEzLjUwNDYgMi40OTU0MyAxOCA4IDE4VjE0QzQuNzA0NTcgMTQgMiAxMS4yOTU0IDIgOEgtMlpNOCAxOEMxMy41MDQ2IDE4IDE4IDEzLjUwNDYgMTggOEgxNEMxNCAxMS4yOTU0IDExLjI5NTQgMTQgOCAxNFYxOFpNMTggOEMxOCAyLjQ5NTQzIDEzLjUwNDYgLTIgOCAtMlYyQzExLjI5NTQgMiAxNCA0LjcwNDU3IDE0IDhIMThaIiBmaWxsPSIjRjlBQjAwIiBtYXNrPSJ1cmwoI3BhdGgtMS1pbnNpZGUtMSkiLz4KPHBhdGggZD0iTTkuMjQ4MDUgMTJINy41NTQ2OVY1LjQ3MjY2TDUuNTMzMiA2LjA5OTYxVjQuNzIyNjZMOS4wNjY0MSAzLjQ1NzAzSDkuMjQ4MDVWMTJaIiBmaWxsPSIjRThFQUVEIi8+CjwvZz4KPC9zdmc+Cg==";
 String silverImageBase64 = "PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHJvbGU9ImltZyIgdmlld0JveD0iMCAwIDE2IDE2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8bWFzayBpZD0icGF0aC0xLWluc2lkZS0xIiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik04IDBDMy42IDAgMCAzLjYgMCA4QzAgMTIuNCAzLjYgMTYgOCAxNkMxMi40IDE2IDE2IDEyLjQgMTYgOEMxNiAzLjYgMTIuNCAwIDggMFoiLz4KPC9tYXNrPgo8cGF0aCBkPSJNOCAtMkMyLjQ5NTQzIC0yIC0yIDIuNDk1NDMgLTIgOEgyQzIgNC43MDQ1NyA0LjcwNDU3IDIgOCAyVi0yWk0tMiA4Qy0yIDEzLjUwNDYgMi40OTU0MyAxOCA4IDE4VjE0QzQuNzA0NTcgMTQgMiAxMS4yOTU0IDIgOEgtMlpNOCAxOEMxMy41MDQ2IDE4IDE4IDEzLjUwNDYgMTggOEgxNEMxNCAxMS4yOTU0IDExLjI5NTQgMTQgOCAxNFYxOFpNMTggOEMxOCAyLjQ5NTQzIDEzLjUwNDYgLTIgOCAtMlYyQzExLjI5NTQgMiAxNCA0LjcwNDU3IDE0IDhIMThaIiBmaWxsPSIjODA4NjhCIiBtYXNrPSJ1cmwoI3BhdGgtMS1pbnNpZGUtMSkiLz4KPHBhdGggZD0iTTEwLjk4MjQgMTJINS4xMzQ3N1YxMC44Mzk4TDcuODk0NTMgNy44OTg0NEM4LjI3MzQ0IDcuNDg0MzggOC41NTI3MyA3LjEyMzA1IDguNzMyNDIgNi44MTQ0NUM4LjkxNjAyIDYuNTA1ODYgOS4wMDc4MSA2LjIxMjg5IDkuMDA3ODEgNS45MzU1NUM5LjAwNzgxIDUuNTU2NjQgOC45MTIxMSA1LjI1OTc3IDguNzIwNyA1LjA0NDkyQzguNTI5MyA0LjgyNjE3IDguMjU1ODYgNC43MTY4IDcuOTAwMzkgNC43MTY4QzcuNTE3NTggNC43MTY4IDcuMjE0ODQgNC44NDk2MSA2Ljk5MjE5IDUuMTE1MjNDNi43NzM0NCA1LjM3Njk1IDYuNjY0MDYgNS43MjI2NiA2LjY2NDA2IDYuMTUyMzRINC45NjQ4NEM0Ljk2NDg0IDUuNjMyODEgNS4wODc4OSA1LjE1ODIgNS4zMzM5OCA0LjcyODUyQzUuNTgzOTggNC4yOTg4MyA1LjkzNTU1IDMuOTYyODkgNi4zODg2NyAzLjcyMDdDNi44NDE4IDMuNDc0NjEgNy4zNTU0NyAzLjM1MTU2IDcuOTI5NjkgMy4zNTE1NkM4LjgwODU5IDMuMzUxNTYgOS40OTAyMyAzLjU2MjUgOS45NzQ2MSAzLjk4NDM4QzEwLjQ2MjkgNC40MDYyNSAxMC43MDcgNS4wMDE5NSAxMC43MDcgNS43NzE0OEMxMC43MDcgNi4xOTMzNiAxMC41OTc3IDYuNjIzMDUgMTAuMzc4OSA3LjA2MDU1QzEwLjE2MDIgNy40OTgwNSA5Ljc4NTE2IDguMDA3ODEgOS4yNTM5MSA4LjU4OTg0TDcuMzE0NDUgMTAuNjM0OEgxMC45ODI0VjEyWiIgZmlsbD0iI0U4RUFFRCIvPgo8L3N2Zz4K";
@@ -32,10 +14,33 @@ String totalImageBase64 = "PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHJvbGU9ImltZyIgd
 
 
 class Scoreboard extends StatelessWidget {
-  const Scoreboard({super.key});
+  Scoreboard({super.key});
+  final ScoreboardWebClient _webClient = ScoreboardWebClient();
 
-  @override
-  Widget build(BuildContext context) {
+  Future<List<ScoreboardLine>> _loadScoreboard() async {
+    bool hasScoreboardOnSession =
+        await SessionManager().containsKey('scoreboard');
+
+    if (hasScoreboardOnSession) {
+      final List<dynamic> decodedJson =
+          await SessionManager().get('scoreboard');
+
+      return decodedJson
+          .map((dynamic json) => ScoreboardLine.fromJson(json))
+          .toList();
+    }
+
+    return _webClient.getScoreboard();
+  }
+
+  String _medalsAmount(ScoreboardLine line) {
+    int amount = int.parse(line.goldMedal) +
+        int.parse(line.silverMedal) +
+        int.parse(line.brassMedal);
+    return amount.toString();
+  }
+
+  Widget _createScoreboard(BuildContext context, List<ScoreboardLine> scoreboard) {
     Base64Decoder base64 = const Base64Decoder();
 
     Uint8List goldImage = base64.convert(goldImageBase64);
@@ -43,50 +48,71 @@ class Scoreboard extends StatelessWidget {
     Uint8List brassImage = base64.convert(brassImageBase64);
     Uint8List totalImage = base64.convert(totalImageBase64);
 
+    return DataTable(
+      columnSpacing: MediaQuery.of(context).size.width / 8,
+      columns: <DataColumn>[
+        const DataColumn(
+          label: Expanded(
+            child: Text(
+              'Nome',
+            ),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: SvgPicture.memory(goldImage),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: SvgPicture.memory(silverImage),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: SvgPicture.memory(brassImage),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: SvgPicture.memory(totalImage),
+          ),
+        ),
+      ],
+      rows: scoreboard.isEmpty
+          ? const [
+              DataRow(cells: [
+                DataCell(Text("There")),
+                DataCell(Text("is")),
+                DataCell(Text("no")),
+                DataCell(Text("data")),
+                DataCell(Text("yet!")),
+              ])
+            ]
+          : scoreboard
+              .map(
+                (line) => DataRow(cells: [
+                  DataCell(Text(line.user)),
+                  DataCell(Text(line.goldMedal)),
+                  DataCell(Text(line.silverMedal)),
+                  DataCell(Text(line.brassMedal)),
+                  DataCell(Text(_medalsAmount(line))),
+                ]),
+              )
+              .toList(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
-      child: DataTable(
-        columnSpacing: MediaQuery.of(context).size.width / 8,
-        columns: <DataColumn>[
-          const DataColumn(
-            label: Expanded(
-              child: Text(
-                'Nome',
-              ),
-            ),
-          ),
-          DataColumn(
-            label: Expanded(
-              child: SvgPicture.memory(goldImage),
-            ),
-          ),
-          DataColumn(
-            label: Expanded(
-              child: SvgPicture.memory(silverImage),
-            ),
-          ),
-          DataColumn(
-            label: Expanded(
-              child: SvgPicture.memory(brassImage),
-            ),
-          ),
-          DataColumn(
-            label: Expanded(
-              child: SvgPicture.memory(totalImage),
-            ),
-          ),
-        ],
-        rows: tableRows
-            .map(
-              (value) => DataRow(cells: [
-                DataCell(Text(value['name'])),
-                DataCell(Text(value['gold'].toString())),
-                DataCell(Text(value['silver'].toString())),
-                DataCell(Text(value['brass'].toString())),
-                DataCell(Text((value['gold'] + value['silver'] + value['brass'])
-                    .toString())),
-              ]),
-            )
-            .toList(),
+      child: FutureBuilder(
+        future: _loadScoreboard(),
+        builder: (context, tableRows) {
+          return tableRows.data != null
+              ? _createScoreboard(context, tableRows.data!)
+              : const CircularProgressIndicator();
+        },
       ),
     );
   }

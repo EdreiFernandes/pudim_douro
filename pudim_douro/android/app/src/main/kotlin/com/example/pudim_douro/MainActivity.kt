@@ -1,4 +1,4 @@
-package com.example.pudim_douro
+package br.com.fortress.mountain.pudimdouro
 
 import io.flutter.embedding.android.FlutterActivity
 

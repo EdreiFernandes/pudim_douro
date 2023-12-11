@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pudim_douro/widgets/side_menu.dart';
-import 'package:pudim_douro/widgets/signed_up_warning.dart';
 
 import '../widgets/scoreboard.dart';
 
@@ -15,9 +14,10 @@ class Home extends StatelessWidget {
         title: const Text('Pudim DOuro'),
       ),
       body: ListView(
-        children: const [
-          SignedUpWarning(),
-          Logo(),
+        children: [
+          // Not avaiable on v1
+          // const SignedUpWarning(),
+          const Logo(),
           Scoreboard(),
         ],
       ),

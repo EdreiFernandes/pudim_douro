@@ -1,37 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
+import 'package:pudim_douro/http/webclients/edition_webclient.dart';
+import 'package:pudim_douro/models/edition.dart';
 import 'package:pudim_douro/widgets/side_menu.dart';
-
-class Winners{
-  String first;
-  String second;
-  String third;
-
-  Winners(
-    this.first,
-    this.second,
-    this.third,
-  );
-}
-
-class YearResume {
-  String year;
-  Winners winners;
-  bool isExpanded;
-
-  YearResume(
-    this.year,
-    this.winners,
-    this.isExpanded,
-  );
-}
-
-List<YearResume> getYearsResume() {
-  return [
-    YearResume('2022', Winners('Guga', 'Sol', 'Ninho'), false),
-    YearResume('2021', Winners('Mãe', 'Fê', 'Guga'), false),
-    YearResume('2020', Winners('Tia', 'Mãe', 'Ninho'), false),
-  ];
-}
 
 class History extends StatefulWidget {
   const History({super.key});
@@ -41,7 +12,30 @@ class History extends StatefulWidget {
 }
 
 class _HistoryState extends State<History> {
-  final List<YearResume> _yearsResume = getYearsResume();
+  final EditionWebClient _webClient = EditionWebClient();
+  List<Edition> editionHistory = List.empty();
+
+  Future<List<Edition>> _loadHistory() async {
+    bool hasHistoryOnSession = await SessionManager().containsKey('history');
+
+    if (hasHistoryOnSession) {
+      final List<dynamic> decodedJson = await SessionManager().get('history');
+
+      return decodedJson.map((dynamic json) => Edition.fromJson(json)).toList();
+    }
+
+    return _webClient.getEditionHistory();
+  }
+
+  @override
+  void initState() {
+    _loadHistory().then((List<Edition> value) {
+      setState(() {
+        editionHistory = value;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +46,14 @@ class _HistoryState extends State<History> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          child: _renderYearsResume(),
+          child: editionHistory.isNotEmpty
+              ? _renderYearsResume()
+              : const Padding(
+                  padding: EdgeInsets.all(32.0),
+                  child: Center(
+                    child: Text("There is no data yet!"),
+                  ),
+                ),
         ),
       ),
     );
@@ -62,26 +63,26 @@ class _HistoryState extends State<History> {
     return ExpansionPanelList(
       expansionCallback: (int index, bool isExpanded) {
         setState(() {
-          _yearsResume[index].isExpanded = !isExpanded;
+          editionHistory.elementAt(index).setIsExpanded(isExpanded);
         });
       },
-      children: _yearsResume.map<ExpansionPanel>((YearResume yearResume) {
+      children: editionHistory.map<ExpansionPanel>((Edition yearResume) {
         return ExpansionPanel(
           headerBuilder: (BuildContext context, isExpanded) {
             return ListTile(
-              title: Text(yearResume.year),
+              title: Text(yearResume.editionYear),
             );
           },
           body: Column(
             children: [
               ListTile(
-                title: Text('1° - ${yearResume.winners.first}'),
+                title: Text('1° - ${yearResume.firstPlace}'),
               ),
               ListTile(
-                title: Text('2° - ${yearResume.winners.second}'),
+                title: Text('2° - ${yearResume.secondPlace}'),
               ),
               ListTile(
-                title: Text('3° - ${yearResume.winners.third}'),
+                title: Text('3° - ${yearResume.thirdPlace}'),
               ),
             ],
           ),

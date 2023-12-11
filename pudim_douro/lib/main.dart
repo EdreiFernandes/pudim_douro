@@ -10,10 +10,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Pudim D\'Ouro',
       theme: ThemeData.dark(),
-      home: const LoginScreen(),
+      home: LoginScreen(),
     );
   }
 }
