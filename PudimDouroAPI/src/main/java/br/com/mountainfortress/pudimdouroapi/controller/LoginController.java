@@ -7,10 +7,7 @@ import br.com.mountainfortress.pudimdouroapi.service.LoginService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.security.auth.login.LoginException;
@@ -18,6 +15,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/login")
+@CrossOrigin(origins = "*")
 public class LoginController {
 
     @Autowired

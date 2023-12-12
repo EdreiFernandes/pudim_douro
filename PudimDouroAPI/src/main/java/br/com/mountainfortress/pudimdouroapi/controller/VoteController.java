@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/vote")
+@CrossOrigin(origins = "*")
 public class VoteController {
 
     @Autowired
