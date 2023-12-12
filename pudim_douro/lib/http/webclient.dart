@@ -10,8 +10,8 @@ const defaultTimeout = Duration(minutes: 1);
 
 const String apiUrl = 'pudimdouroapi.onrender.com';
 
-final Uri userUrl = Uri.http(apiUrl, '/api/user');
-final Uri loginUrl = Uri.http(apiUrl, '/api/login');
-final Uri signupUrl = Uri.http(apiUrl, '/api/login/new');
-final Uri scoreboardUrl = Uri.http(apiUrl, '/api/scoreboard');
-final Uri editionUrl = Uri.http(apiUrl, '/api/edition');
+final Uri userUrl = Uri.https(apiUrl, '/api/user');
+final Uri loginUrl = Uri.https(apiUrl, '/api/login');
+final Uri signupUrl = Uri.https(apiUrl, '/api/login/new');
+final Uri scoreboardUrl = Uri.https(apiUrl, '/api/scoreboard');
+final Uri editionUrl = Uri.https(apiUrl, '/api/edition');
