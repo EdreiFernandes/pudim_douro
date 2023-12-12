@@ -8,7 +8,7 @@ final Client client = InterceptedClient.build(interceptors: [
 
 const defaultTimeout = Duration(minutes: 1);
 
-const String apiUrl = '192.168.15.150:8080';
+const String apiUrl = 'pudimdouroapi.onrender.com';
 
 final Uri userUrl = Uri.http(apiUrl, '/api/user');
 final Uri loginUrl = Uri.http(apiUrl, '/api/login');

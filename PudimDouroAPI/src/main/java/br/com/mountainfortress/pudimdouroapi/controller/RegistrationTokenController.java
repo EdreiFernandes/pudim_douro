@@ -12,6 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/token")
+@CrossOrigin(origins = "*")
 public class RegistrationTokenController {
 
     @Autowired
